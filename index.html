@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0614" />
+    <meta
+      name="description"
+      content="Pozvánka na narozeninovou oslavu 1. srpna 2026 od 14:00 v Boroticích."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Narozeninová oslava · 1. 8. 2026</title>
+  </head>
+  <body>
+    <div class="space" aria-hidden="true">
+      <div class="nebula nebula--blue"></div>
+      <div class="nebula nebula--violet"></div>
+      <div class="nebula nebula--pink"></div>
+      <div class="starfield starfield--fine"></div>
+      <div class="starfield starfield--bright"></div>
+    </div>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <header class="topbar">
+          <p>Narozeniny</p>
+          <p>1. 8. 2026</p>
+        </header>
+
+        <div class="hero__intro">
+          <p class="eyebrow">Pozvánka</p>
+          <h1 id="hero-title">Na<br /><em>narozeniny.</em></h1>
+        </div>
+
+        <div class="event-details" aria-label="Informace o oslavě">
+          <article class="event-detail">
+            <p class="event-detail__label">Kdy</p>
+            <p class="event-detail__value">1. 8. 2026</p>
+            <p class="event-detail__meta">od 14:00</p>
+          </article>
+
+          <article class="event-detail event-detail--place">
+            <p class="event-detail__label">Kde</p>
+            <p class="event-detail__value">Borotice 43</p>
+            <a
+              class="map-link"
+              href="https://www.google.com/maps/place/Borotice+43,+262+15+Borotice,+%C4%8Cesko/@49.7354584,14.2821263,420m/data=!3m1!1e3!4m10!1m2!2m1!1sBorotice+43,+%C4%8Cesko!3m6!1s0x470b769ecdc55709:0x42945df2c49672ec!8m2!3d49.7356054!4d14.2836344!15sChNCb3JvdGljZSA0MywgxIxlc2tvkgERY29tcG91bmRfYnVpbGRpbmfgAQA!16s%2Fg%2F11c4svbf88?entry=ttu"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Maps
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M6 14 14 6M8 6h6v6" />
+              </svg>
+            </a>
+          </article>
+        </div>
+
+        <a class="primary-button" href="#potvrdit">
+          <span>Potvrdit účast</span>
+          <span aria-hidden="true">↓</span>
+        </a>
+      </section>
+
+      <section class="rsvp" id="potvrdit" aria-labelledby="rsvp-title">
+        <div class="rsvp__header">
+          <p class="eyebrow">RSVP</p>
+          <h2 id="rsvp-title"><em>Dorazíš?</em></h2>
+          <p>Napiš, kdo přijde.</p>
+        </div>
+
+        <form class="rsvp-form" id="rsvp-form" novalidate>
+          <div class="form-field">
+            <label for="names">Jméno / jména</label>
+            <input
+              id="names"
+              name="names"
+              type="text"
+              maxlength="200"
+              autocomplete="name"
+              placeholder="Např. Gustav a Ernest"
+              required
+            />
+            <p class="field-error" id="names-error" aria-live="polite"></p>
+          </div>
+          <div class="honeypot" aria-hidden="true">
+            <label for="website">Web</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <button class="submit-button" type="submit">
+            <span class="button-label">Ano, dorazím</span>
+            <span class="button-icon" aria-hidden="true">→</span>
+          </button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>Těším se.</p>
+      <span>1. 8. 2026 · Borotice</span>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
