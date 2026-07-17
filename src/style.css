@@ -191,6 +191,19 @@ footer {
   text-align: center;
 }
 
+.invite-photo {
+  width: clamp(104px, 9vw, 128px);
+  height: auto;
+  aspect-ratio: 1;
+  display: block;
+  margin: 0 auto 20px;
+  border: 1px solid rgba(239, 230, 255, 0.34);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  box-shadow: 0 14px 45px rgba(2, 0, 8, 0.35);
+}
+
 .eyebrow {
   margin: 0 0 23px;
   color: #d8c4ff;
@@ -514,6 +527,10 @@ footer p {
   .hero__intro {
     margin: 74px 0 50px;
     text-align: left;
+  }
+
+  .invite-photo {
+    margin-left: 0;
   }
 
   h1 {
