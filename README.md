@@ -10,16 +10,16 @@ copy .env.example .env.local
 npm run dev
 ```
 
-Do `.env.local` doplňte `VITE_SUPABASE_URL` a `VITE_SUPABASE_ANON_KEY` z nastavení Supabase projektu.
+Do `.env.local` doplňte `VITE_SUPABASE_URL` a `VITE_SUPABASE_PUBLISHABLE_KEY` z nastavení Supabase projektu.
 
 ## Supabase
 
-1. V Supabase otevřete **SQL Editor**.
-2. Spusťte obsah souboru `supabase/schema.sql`.
-3. V **Project Settings → API** zkopírujte Project URL a anon/public key do `.env.local`.
+Databázová tabulka a bezpečnostní pravidla jsou v `supabase/migrations`. Při zapnutém **Deploy to production** je Supabase GitHub integrace spustí automaticky po pushnutí produkční větve.
+
+V **Project Settings → API Keys** zkopírujte publishable key do `.env.local`. Nikdy do frontendu nevkládejte secret nebo service role key.
 
 Odpovědi se zobrazí v **Table Editor → rsvps**. Veřejný návštěvník může odpověď pouze vložit; nemůže číst ani upravovat odpovědi ostatních.
 
-## Nasazení
+## Nasazení na GitHub Pages
 
-Projekt lze nasadit z Git repozitáře například na Vercel, Netlify nebo Cloudflare Pages. Build command je `npm run build`, výstupní složka `dist`. Na hostingu nastavte stejné dvě proměnné prostředí jako v `.env.local`.
+Vite je nastavený pro adresu `https://ondreju11.github.io/Narozeniny/`. GitHub Pages musí při buildu dostat stejné dvě proměnné prostředí jako lokální `.env.local`.

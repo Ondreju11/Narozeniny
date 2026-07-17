@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import './style.css';
 
+const countdown = document.querySelector('#countdown');
 const form = document.querySelector('#rsvp-form');
 const namesInput = document.querySelector('#names');
 const namesError = document.querySelector('#names-error');
@@ -9,11 +10,45 @@ const submitButton = form.querySelector('button[type="submit"]');
 const buttonLabel = submitButton.querySelector('.button-label');
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const hasSupabaseConfig = Boolean(supabaseUrl && supabaseAnonKey);
+const supabasePublishableKey =
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+  import.meta.env.VITE_SUPABASE_ANON_KEY;
+const hasSupabaseConfig = Boolean(supabaseUrl && supabasePublishableKey);
 const supabase = hasSupabaseConfig
-  ? createClient(supabaseUrl, supabaseAnonKey)
+  ? createClient(supabaseUrl, supabasePublishableKey)
   : null;
+
+const partyStartsAt = new Date('2026-08-01T14:00:00+02:00').getTime();
+
+function czechDays(value) {
+  if (value === 1) return 'den';
+  if (value >= 2 && value <= 4) return 'dny';
+  return 'dní';
+}
+
+function updateCountdown() {
+  const remaining = partyStartsAt - Date.now();
+
+  if (remaining <= 0) {
+    countdown.textContent = 'Dnes slavíme';
+    return false;
+  }
+
+  const totalSeconds = Math.floor(remaining / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  countdown.textContent = `${days} ${czechDays(days)} · ${String(hours).padStart(2, '0')} h · ${String(minutes).padStart(2, '0')} min · ${String(seconds).padStart(2, '0')} s`;
+  return true;
+}
+
+if (updateCountdown()) {
+  const countdownTimer = window.setInterval(() => {
+    if (!updateCountdown()) window.clearInterval(countdownTimer);
+  }, 1000);
+}
 
 function setStatus(message, type = '') {
   formStatus.textContent = message;
