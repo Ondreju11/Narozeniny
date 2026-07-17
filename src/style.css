@@ -463,6 +463,14 @@ h2 {
   opacity: 0.65;
 }
 
+.rsvp-form.is-submitted .form-field {
+  opacity: 0.55;
+}
+
+.rsvp-form.is-submitted .submit-button:disabled {
+  cursor: default;
+}
+
 .submit-button.is-loading .button-icon {
   animation: pulse 900ms ease-in-out infinite alternate;
 }

@@ -8,6 +8,14 @@ const namesError = document.querySelector('#names-error');
 const formStatus = document.querySelector('#form-status');
 const submitButton = form.querySelector('button[type="submit"]');
 const buttonLabel = submitButton.querySelector('.button-label');
+const submissionStorageKey = 'narozeniny-rsvp-2026';
+let hasSubmitted = false;
+
+try {
+  hasSubmitted = window.localStorage.getItem(submissionStorageKey) === 'submitted';
+} catch {
+  // The form still works when browser storage is unavailable.
+}
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabasePublishableKey =
@@ -56,10 +64,27 @@ function setStatus(message, type = '') {
 }
 
 function setLoading(isLoading) {
+  if (hasSubmitted) {
+    submitButton.disabled = true;
+    submitButton.classList.remove('is-loading');
+    buttonLabel.textContent = 'Účast potvrzena';
+    return;
+  }
+
   submitButton.disabled = isLoading;
   submitButton.classList.toggle('is-loading', isLoading);
   buttonLabel.textContent = isLoading ? 'Odesílám…' : 'Ano, dorazím';
 }
+
+function lockRsvpForm(message = 'Účast už je potvrzená. Děkuji!') {
+  hasSubmitted = true;
+  namesInput.disabled = true;
+  form.classList.add('is-submitted');
+  setLoading(false);
+  setStatus(message, 'success');
+}
+
+if (hasSubmitted) lockRsvpForm();
 
 namesInput.addEventListener('input', () => {
   namesInput.removeAttribute('aria-invalid');
@@ -69,6 +94,8 @@ namesInput.addEventListener('input', () => {
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
+
+  if (hasSubmitted) return;
 
   const names = namesInput.value.trim().replace(/\s+/g, ' ');
   const website = form.elements.website.value;
@@ -94,8 +121,14 @@ form.addEventListener('submit', async (event) => {
     const { error } = await supabase.from('rsvps').insert({ names });
     if (error) throw error;
 
+    try {
+      window.localStorage.setItem(submissionStorageKey, 'submitted');
+    } catch {
+      // Keep the form locked for the current page even without storage.
+    }
+
     form.reset();
-    setStatus(`Děkuji! S ${names} počítám. ✦`, 'success');
+    lockRsvpForm(`Děkuji! S ${names} počítám. ✦`);
   } catch (error) {
     console.error('RSVP submission failed:', error);
     setStatus('To se nepovedlo odeslat. Zkus to prosím ještě jednou.', 'error');
